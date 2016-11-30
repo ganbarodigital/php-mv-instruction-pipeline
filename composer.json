@@ -1,0 +1,26 @@
+{
+    "name": "ganbarodigital/php-mv-instruction-pipeline",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "authors": [
+        { "name": "Stuart Herbert", "email": "stuart@stuartherbert.com" }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/stuartherbert/Couscous"
+        }
+    ],
+    "require": {
+        "php": ">= 5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.6",
+        "couscous/couscous": "dev-develop"
+    },
+    "autoload": {
+        "psr-4": {
+            "GanbaroDigital\\OperationsPipeline\\": "src"
+        }
+    }
+}
