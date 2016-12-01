@@ -44,8 +44,8 @@
 namespace GanbaroDigital\InstructionPipeline\V1\PipelineBuilders;
 
 use GanbaroDigital\InstructionPipeline\V1\InstructionPipeline;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilders\FoDiInstructionBuilder;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilders\ReDiInstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\FoDiInstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\ReDiInstructionBuilder;
 use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstruction;
 use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstructionBuilder;
 
@@ -92,7 +92,7 @@ class BuildInstructionPipeline
 
             foreach ($directionTypes as $direction => $details) {
                 if ($directions & $direction) {
-                    // we can add this when the reflection-types package is out
+                    // we can add this when the type-checking package is out
                     // RequireCompatibleWith::apply($details['interface'])->to($builderClass);
 
                     // build the instruction

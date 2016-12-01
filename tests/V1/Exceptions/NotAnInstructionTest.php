@@ -182,7 +182,7 @@ class NotAnInstructionTest extends PHPUnit_Framework_TestCase
 
         $data = "NotABuilder";
 
-        $expectedMessage = 'ReflectionMethod->invokeArgs(): GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromInputParameter()@199 says \'$data\' does not implement the \'GanbaroDigital\InstructionPipeline\V1\Instruction\' interface';
+        $expectedMessage = 'ReflectionMethod->invokeArgs(): GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromInputParameter()@199 says \'$data\' does not implement the \'GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction\' interface';
         $expectedData = [
             'thrownBy' => new CodeCaller(self::class, __FUNCTION__, '->', __FILE__, __LINE__ + 12),
             'thrownByName' => 'GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromInputParameter()@199',
@@ -218,7 +218,7 @@ class NotAnInstructionTest extends PHPUnit_Framework_TestCase
 
         $data = 'NotABuilder';
 
-        $expectedMessage = 'GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromVariable()@233: \'$data\' does not implement the \'GanbaroDigital\InstructionPipeline\V1\Instruction\' interface';
+        $expectedMessage = 'GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromVariable()@233: \'$data\' does not implement the \'GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction\' interface';
         $expectedData = [
             'thrownBy' => new CodeCaller(self::class, __FUNCTION__, '->', __FILE__, __LINE__ + 10),
             'thrownByName' => 'GanbaroDigitalTest\InstructionPipeline\V1\Exceptions\NotAnInstructionTest->testCanCreateFromVariable()@233',

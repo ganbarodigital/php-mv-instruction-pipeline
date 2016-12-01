@@ -46,7 +46,7 @@ namespace GanbaroDigital\InstructionPipeline\V1\Exceptions;
 use GanbaroDigital\ExceptionHelpers\V1\BaseExceptions\ParameterisedException;
 use GanbaroDigital\HttpStatus\Interfaces\HttpRuntimeErrorException;
 use GanbaroDigital\HttpStatus\StatusProviders\RuntimeError\UnexpectedErrorStatusProvider;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilders\InstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\InstructionBuilder;
 
 /**
  * exception thrown when the instruction builder we've been asked to use

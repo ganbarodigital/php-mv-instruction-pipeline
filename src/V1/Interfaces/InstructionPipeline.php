@@ -34,25 +34,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Libraries
- * @package   InstructionPipeline
+ * @package   InstructionPipeline\Interfaces
  * @author    Stuart Herbert <stuherbert@ganbarodigital.com>
  * @copyright 2016-present Ganbaro Digital Ltd www.ganbarodigital.com
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link      http://ganbarodigital.github.io/php-mv-instruction-pipeline
  */
 
-namespace GanbaroDigital\InstructionPipeline\V1;
+namespace GanbaroDigital\InstructionPipeline\V1\Interfaces;
 
-/**
- * interface implemented by all instructions
- */
-interface Instruction
+interface InstructionPipeline
 {
-    /**
-     * what the human-readable name for this instruction?
-     *
-     * @return string
-     */
-    public function getInstructionName();
-    public function process($params);
+    const DI_FORWARD = 1;
+    const DI_REVERSE = 2;
 }

@@ -44,7 +44,7 @@
 namespace GanbaroDigital\InstructionPipeline\V1\Checks;
 
 use GanbaroDigital\MissingBits\Checks\Check;
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 
 /**
  * is $fieldOrVar a valid Instruction?

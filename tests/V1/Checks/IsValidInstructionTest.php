@@ -44,7 +44,7 @@
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Checks;
 
 use GanbaroDigital\InstructionPipeline\V1\Checks\IsValidInstruction;
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 use GanbaroDigital\MissingBits\Checks\Check;
 use PHPUnit_Framework_TestCase;
 

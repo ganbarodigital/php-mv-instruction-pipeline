@@ -46,7 +46,7 @@ namespace GanbaroDigital\InstructionPipeline\V1\Exceptions;
 use GanbaroDigital\ExceptionHelpers\V1\BaseExceptions\ParameterisedException;
 use GanbaroDigital\HttpStatus\Interfaces\HttpRuntimeErrorException;
 use GanbaroDigital\HttpStatus\StatusProviders\RuntimeError\UnexpectedErrorStatusProvider;
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 
 /**
  * exception thrown when we've been given something that isn't an Instruction

@@ -43,8 +43,8 @@
 
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Requirements;
 
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstruction;
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
 use GanbaroDigital\Defensive\V1\Interfaces\Requirement;
 use PHPUnit_Framework_TestCase;
 

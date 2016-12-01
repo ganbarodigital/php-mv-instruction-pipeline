@@ -34,30 +34,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Libraries
- * @package   InstructionPipeline/InstructionBuilders
+ * @package   InstructionPipeline/Interfaces
  * @author    Stuart Herbert <stuherbert@ganbarodigital.com>
  * @copyright 2016-present Ganbaro Digital Ltd www.ganbarodigital.com
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link      http://ganbarodigital.github.io/php-mv-instruction-pipeline
  */
 
-namespace GanbaroDigital\InstructionPipeline\V1\InstructionBuilders;
-
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
+namespace GanbaroDigital\InstructionPipeline\V1\Interfaces;
 
 /**
  * interface implemented by all factories that create individual instructions
- * for 'reverse' pipelines
+ * for bi-directional pipelines
  */
-interface ReDiInstructionBuilder extends InstructionBuilder
+interface BiDiInstructionBuilder extends FoDiInstructionBuilder, ReDiInstructionBuilder
 {
-    /**
-     * build an instruction
-     *
-     * @param  array $config
-     *         the config that the instruction needs
-     * @return Instruction
-     *         the built instruction
-     */
-    public static function buildReverseInstructionFrom(array $config);
 }

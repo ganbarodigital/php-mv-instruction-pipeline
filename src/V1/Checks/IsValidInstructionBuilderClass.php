@@ -45,7 +45,7 @@ namespace GanbaroDigital\InstructionPipeline\V1\Checks;
 
 use GanbaroDigital\MissingBits\Checks\Check;
 use GanbaroDigital\MissingBits\TypeInspectors\GetClassTypes;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilders\InstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\InstructionBuilder;
 
 /**
  * is $fieldOrVar a valid InstructionBuilder class?

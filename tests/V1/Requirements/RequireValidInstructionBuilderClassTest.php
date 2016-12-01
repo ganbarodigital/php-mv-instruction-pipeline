@@ -44,7 +44,7 @@
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Requirements;
 
 use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstructionBuilderClass;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilders\InstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\InstructionBuilder;
 use GanbaroDigital\Defensive\V1\Interfaces\Requirement;
 use PHPUnit_Framework_TestCase;
 
