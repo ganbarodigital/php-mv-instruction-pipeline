@@ -60,5 +60,5 @@ class NotAnInstruction
     use UnexpectedErrorStatusProvider;
 
     // our format string
-    static protected $defaultFormat = "'%fieldOrVar\$s' does not implement the '" . Instruction::class . "' interface";
+    static protected $defaultFormat = "'%fieldOrVarName\$s' does not implement the '" . Instruction::class . "' interface";
 }
