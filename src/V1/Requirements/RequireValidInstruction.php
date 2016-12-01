@@ -80,7 +80,7 @@ class RequireValidInstruction implements Requirement
      */
     public static function apply(FactoryList $exceptions = null)
     {
-        return new RequireValidInstruction($exceptions);
+        return new self($exceptions);
     }
 
     /**
