@@ -43,6 +43,7 @@
 
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Exceptions;
 
+use GanbaroDigital\InstructionPipeline\V1\Exceptions\UnsupportedType;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\CannotFindInstructionBuilder;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\NotAnInstruction;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\NotAnInstructionBuilder;
@@ -223,5 +224,49 @@ class InstructionPipelineExceptionsTest extends PHPUnit_Framework_TestCase
         // test the results
 
         $this->assertInstanceOf(NotAnInstructionBuilder::class, $exception);
+    }
+
+    /**
+     * @covers ::offsetGet
+     */
+    public function test_has_factory_for_UnsupportedType_newFromInputParameter()
+    {
+        // ----------------------------------------------------------------
+        // setup your test
+
+        $unit = new InstructionPipelineExceptions;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        $factory = $unit['UnsupportedType::newFromInputParameter'];
+        $exception = $factory(false, '$data');
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        $this->assertInstanceOf(UnsupportedType::class, $exception);
+    }
+
+    /**
+     * @covers ::offsetGet
+     */
+    public function test_has_factory_for_UnsupportedType_newFromVar()
+    {
+        // ----------------------------------------------------------------
+        // setup your test
+
+        $unit = new InstructionPipelineExceptions;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        $factory = $unit['UnsupportedType::newFromVar'];
+        $exception = $factory(false, '$data');
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        $this->assertInstanceOf(UnsupportedType::class, $exception);
     }
 }

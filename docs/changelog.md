@@ -13,6 +13,7 @@ Initial support for creating instruction pipelines:
 - added `InstructionPipelineExecptions` DI container
 - added `NotAnInstruction` exception
 - added `NotAnInstructionBuilder` exception
+- added `UnsupportedType` exception
 - added `InstructionBuilder` interface
 - added `FoDiInstructionBuilder` interface
 - added `ReDiInstructionBuilder` interface
