@@ -43,13 +43,16 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\Requirements;
 
-use InvalidArgumentException;
 use GanbaroDigital\Defensive\V1\Interfaces\Requirement;
 use GanbaroDigital\DIContainers\V1\Interfaces\FactoryList;
+use GanbaroDigital\InstructionPipeline\V1\Checks\IsValidInstructionBuilderClass;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineExceptions;
-use GanbaroDigital\InstructionPipeline\V1\InstructionBuilder;
 
-class RequireValidInstructionBuilder implements Requirement
+/**
+ * throws an exception if $fieldOrVar is not the name of a class that
+ * implements the InstructionBuilder interface
+ */
+class RequireValidInstructionBuilderClass implements Requirement
 {
     /**
      * the factory that will make our exceptions
@@ -77,11 +80,11 @@ class RequireValidInstructionBuilder implements Requirement
      *
      * @param  FactoryList|null $exceptions
      *         the functions to call when we want to throw an exception
-     * @return RequireValidInstruction
+     * @return RequireValidInstructionBuilderClass
      */
     public static function apply(FactoryList $exceptions = null)
     {
-        return new RequireValidInstruction($exceptions);
+        return new self($exceptions);
     }
 
     /**
@@ -126,13 +129,13 @@ class RequireValidInstructionBuilder implements Requirement
     public function to($fieldOrVar, $fieldOrVarName = "value")
     {
         if (!is_string($fieldOrVar)) {
-            throw new InvalidArgumentException('$fieldOrVar must be a string');
+            throw $this->exceptions['UnsupportedType::newFromInputParameter']($fieldOrVar, $fieldOrVarName);
         }
         if (!class_exists($fieldOrVar)) {
-            throw $this->exceptions['CannotFindInstructionBuilder::newFromVar']($fieldOrVar, $fieldOrVarName);
+            throw $this->exceptions['CannotFindInstructionBuilder::newFromInputParameter']($fieldOrVar, $fieldOrVarName);
         }
-        if (!$fieldOrVar instanceof InstructionBuilder) {
-            throw $this->exceptions['NotAnInstructionBuilder::newFromVar']($fieldOrVar, $fieldOrVarName);
+        if (!IsValidInstructionBuilderClass::check($fieldOrVar)) {
+            throw $this->exceptions['NotAnInstructionBuilder::newFromInputParameter']($fieldOrVar, $fieldOrVarName);
         }
     }
 }

@@ -20,6 +20,6 @@ Initial support for creating instruction pipelines:
 - added `BiDiInstructionBuilder` interface
 - added `BuildInstructionPipeline` builder
 - added `RequireValidInstruction` requirement
-- added `RequireValidInstructionBuilder` requirement
+- added `RequireValidInstructionBuilderClass` requirement
 - added `Instruction` interface
 - added `InstructionPipeline` interface
