@@ -45,8 +45,8 @@ namespace GanbaroDigital\InstructionPipeline\V1\Requirements;
 
 use GanbaroDigital\Defensive\V1\Interfaces\Requirement;
 use GanbaroDigital\DIContainers\V1\Interfaces\FactoryList;
+use GanbaroDigital\InstructionPipeline\V1\Checks\IsValidInstruction;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineExceptions;
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
 
 class RequireValidInstruction implements Requirement
 {
@@ -124,10 +124,7 @@ class RequireValidInstruction implements Requirement
      */
     public function to($fieldOrVar, $fieldOrVarName = "value")
     {
-        if (!is_object($fieldOrVar)) {
-            throw $this->exceptions['NotAnInstruction::newFromVar']($fieldOrVar, $fieldOrVarName);
-        }
-        if (!$fieldOrVar instanceof Instruction) {
+        if (!IsValidInstruction::check($fieldOrVar)) {
             throw $this->exceptions['NotAnInstruction::newFromVar']($fieldOrVar, $fieldOrVarName);
         }
     }
