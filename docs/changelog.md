@@ -2,6 +2,12 @@
 
 ## develop branch
 
+Nothing yet.
+
+## v1.2016120201
+
+Released Friday 2nd December 2016.
+
 ### New
 
 Initial support for creating instruction pipelines:
