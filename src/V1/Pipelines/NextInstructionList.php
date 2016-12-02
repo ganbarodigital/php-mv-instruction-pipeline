@@ -43,7 +43,13 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\Pipelines;
 
-class NextInstructionList
+use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineError;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\NextInstruction;
+
+/**
+ * iterates through a list of callables when you call __invoke()
+ */
+class NextInstructionList implements NextInstruction
 {
     /**
      * our list of instructions to work through
@@ -51,24 +57,69 @@ class NextInstructionList
      */
     protected $instructions;
 
+    /**
+     * create the iterator
+     *
+     * @param callable[] $instructions
+     *        the list of instructions to iterate through
+     */
     public function __construct($instructions)
     {
         $this->instructions = $instructions;
     }
 
+    /**
+     * call the next instruction in the list
+     *
+     * @param  mixed $params
+     *         the collated params from the previous instruction or
+     *         from the code triggering the entire pipeline
+     * @return mixed
+     *         the params from the final instruction in the list
+     */
     public function __invoke(...$params)
     {
         // do we have a 'next' instruction?
-        $instruction = next($this->instructions);
-        if (!is_callable($instruction)) {
-            // all done
+        $instruction = current($this->instructions);
+        if (!$instruction) {
+            // we've reached the end of the usable list
+
+            // what do we need to return?
+            if (count($params) === 1) {
+                // only one value to return
+                return current($params);
+            }
+
+            // we have list of values to return
             return $params;
         }
 
+        // remember where we are in the pipeline, in case an error occurs
+        $currentKey = key($this->instructions);
+
         // add ourselves to the list
-        array_unshift($this, $params);
+        array_unshift($params, $this);
+
+        // move our list to the next instruction
+        // this makes sure we're ready for when the pipeline calls us again
+        next($this->instructions);
 
         // trigger the next instruction in the pipeline
-        return call_user_func_array($instruction, $params);
+        $errorMessage = null;
+        set_error_handler(function ($errno, $errstr) use (&$errorMessage) {
+            $errorMessage = $errstr;
+        });
+        $retval = call_user_func_array($instruction, $params);
+        restore_error_handler();
+
+        // what happened?
+        if ($errorMessage !== null) {
+            throw InstructionPipelineError::newFromVar($errorMessage, '$errorMessage', [
+                'pipeline_key' => $currentKey
+            ]);
+        }
+
+        // if we get here, then no error occurred
+        return $retval;
     }
 }
