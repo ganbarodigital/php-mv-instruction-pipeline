@@ -15,9 +15,6 @@ Initial support for creating instruction pipelines:
 - added `NotAnInstructionBuilder` exception
 - added `UnsupportedType` exception
 - added `InstructionBuilder` interface
-- added `FoDiInstructionBuilder` interface
-- added `ReDiInstructionBuilder` interface
-- added `BiDiInstructionBuilder` interface
 - added `BuildInstructionPipeline` builder
 - added `RequireValidInstruction` requirement
 - added `RequireValidInstructionBuilderClass` requirement
