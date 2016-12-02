@@ -67,10 +67,7 @@ class BuildInstructionPipeline
     public static function from($definition, $directions = InstructionPipeline::DI_FORWARD|InstructionPipeline::DI_REVERSE)
     {
         // the pipelines that we are building
-        $pipelines = [
-            InstructionPipeline::DI_FORWARD => [],
-            InstructionPipeline::DI_REVERSE => []
-        ];
+        $pipelines = [];
 
         // assemble the pipelines
         foreach($definition as $builderClass => $config) {
@@ -93,13 +90,15 @@ class BuildInstructionPipeline
 
         // special case - the reverse pipeline is currently in the wrong
         // order
-        $pipelines[InstructionPipeline::DI_REVERSE] = array_reverse($pipelines[InstructionPipeline::DI_REVERSE]);
+        if (isset($pipelines[InstructionPipeline::DI_REVERSE])) {
+            $pipelines[InstructionPipeline::DI_REVERSE] = array_reverse($pipelines[InstructionPipeline::DI_REVERSE]);
+        }
 
         // wrap them in our $next wrapper
-        $retval = [
-            InstructionPipeline::DI_FORWARD => new NextInstructionList($pipelines[InstructionPipeline::DI_FORWARD]),
-            InstructionPipeline::DI_REVERSE => new NextInstructionList($pipelines[InstructionPipeline::DI_REVERSE]),
-        ];
+        $retval = [];
+        foreach($pipelines as $direction => $instructions) {
+            $retval[$direction] = new NextInstructionList($instructions);
+        }
 
         // all done
         return $retval;
