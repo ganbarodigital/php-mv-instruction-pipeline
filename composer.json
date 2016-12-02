@@ -12,7 +12,10 @@
         }
     ],
     "require": {
-        "php": ">= 5.5"
+        "php": ">= 5.5",
+        "ganbarodigital/php-the-missing-bits": "dev-develop as 1.10.0",
+        "ganbarodigital/php-mv-exception-helpers": "^1.2016061902",
+        "ganbarodigital/php-mv-defensive": "^1.2016082401"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.6",
@@ -20,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "GanbaroDigital\\OperationsPipeline\\": "src"
+            "GanbaroDigital\\InstructionPipeline\\": "src"
         }
     }
 }
