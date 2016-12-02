@@ -43,7 +43,7 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\Interfaces;
 
-interface InstructionPipeline
+interface InstructionPipeline extends NextInstruction
 {
     const DI_FORWARD = 1;
     const DI_REVERSE = 2;

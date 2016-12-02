@@ -61,7 +61,7 @@ class BuildInstructionPipeline
      *         for each builder
      * @param  int $directions
      *         which pipelines do we want to build? (bitwise mask)
-     * @return array
+     * @return InstructionPipeline[]
      *         the assembled pipelines
      */
     public static function from($definition, $directions = InstructionPipeline::DI_FORWARD|InstructionPipeline::DI_REVERSE)
