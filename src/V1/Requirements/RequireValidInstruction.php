@@ -44,12 +44,21 @@
 namespace GanbaroDigital\InstructionPipeline\V1\Requirements;
 
 use GanbaroDigital\Defensive\V1\Interfaces\Requirement;
+use GanbaroDigital\Defensive\V1\Interfaces\ListRequirement;
+use GanbaroDigital\Defensive\V1\Requirements\InvokeableRequirement;
+use GanbaroDigital\Defensive\V1\Requirements\ListableRequirement;
 use GanbaroDigital\DIContainers\V1\Interfaces\FactoryList;
 use GanbaroDigital\InstructionPipeline\V1\Checks\IsValidInstruction;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineExceptions;
 
-class RequireValidInstruction implements Requirement
+class RequireValidInstruction implements Requirement, ListRequirement
 {
+    // saves us having to declare ::__invoke() ourselves
+    use InvokeableRequirement;
+
+    // saves us having to declare ::toList() ourselves
+    use ListableRequirement;
+
     /**
      * the factory that will make our exceptions
      * @var FactoryList
@@ -81,36 +90,6 @@ class RequireValidInstruction implements Requirement
     public static function apply(FactoryList $exceptions = null)
     {
         return new self($exceptions);
-    }
-
-    /**
-     * throws exception if our inspection fails
-     *
-     * @param  mixed $fieldOrVar
-     *         the data to be examined
-     * @param  string $fieldOrVarName
-     *         what is the name of $fieldOrVar in the calling code?
-     * @return void
-     */
-    public function __invoke($fieldOrVar, $fieldOrVarName = "value")
-    {
-        return $this->to($fieldOrVar, $fieldOrVarName);
-    }
-
-    /**
-     * throws exception if our inspection fails
-     *
-     * this is an alias of to() for readability purposes
-     *
-     * @param  mixed $fieldOrVar
-     *         the data to be examined
-     * @param  string $fieldOrVarName
-     *         what is the name of $fieldOrVar in the calling code?
-     * @return void
-     */
-    public function inspect($fieldOrVar, $fieldOrVarName = "value")
-    {
-        return $this->to($fieldOrVar, $fieldOrVarName);
     }
 
     /**
