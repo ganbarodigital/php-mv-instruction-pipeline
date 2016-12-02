@@ -48,4 +48,15 @@ namespace GanbaroDigital\InstructionPipeline\V1\Interfaces;
  */
 interface InstructionBuilder
 {
+    /**
+     * factory method, creates an instruction to go into the pipeline
+     *
+     * @param  int $direction
+     *         bitmask of the InstructionPipeline::DI_* constants
+     * @param  mixed $config
+     *         the config required to build the instruction
+     * @return callable[]
+     *         the ready-built instructions
+     */
+    public function buildInstructions($directions, $config);
 }

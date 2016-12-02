@@ -43,11 +43,10 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\PipelineBuilders;
 
-use GanbaroDigital\InstructionPipeline\V1\InstructionPipeline;
-use GanbaroDigital\InstructionPipeline\V1\Interfaces\FoDiInstructionBuilder;
-use GanbaroDigital\InstructionPipeline\V1\Interfaces\ReDiInstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Interfaces\InstructionPipeline;
+use GanbaroDigital\InstructionPipeline\V1\Pipelines\NextInstructionList;
 use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstruction;
-use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Requirements\RequireValidInstructionBuilderClass;
 
 /**
  * assemble a pipeline of instructions to execute
@@ -73,36 +72,22 @@ class BuildInstructionPipeline
             InstructionPipeline::DI_REVERSE => []
         ];
 
-        // how we build each pipeline
-        $directionTypes = [
-            InstructionPipeline::DI_FORWARD => [
-                'interface' => FoDiInstructionBuilder::class,
-                'method' => 'buildForwardInstructionFrom',
-            ],
-            InstructionPipeline::DI_REVERSE => [
-                'interface' => ReDiInstructionBuilder::class,
-                'method' => 'buildReverseInstructionFrom'
-            ],
-        ];
-
         // assemble the pipelines
         foreach($definition as $builderClass => $config) {
-            // robustness
-            RequireValidInstructionBuilder::apply()->to($builderClass);
+            // make sure we have something that claims to know how to build
+            // instructions to go into our pipeline
+            RequireValidInstructionBuilderClass::apply()->to($builderClass);
 
-            foreach ($directionTypes as $direction => $details) {
-                if ($directions & $direction) {
-                    // we can add this when the type-checking package is out
-                    // RequireCompatibleWith::apply($details['interface'])->to($builderClass);
+            // get the instruction(s)
+            $instructions = $builderClass::buildInstructions($directions, $config);
 
-                    // build the instruction
-                    $funcName = $details['method'];
-                    $instruction = $builderClass::$funcName($config);
-                    RequireValidInstruction::apply()->to($instruction);
+            // make sure we haven't been given garbage
+            // NOTE that it is perfectly valid for the list to be empty
+            RequireValidInstruction::apply()->toList($instructions);
 
-                    // remember it
-                    $pipelines[$direction][] = $instruction;
-                }
+            // add them to the pipeline(s) we're building
+            foreach ($instructions as $direction => $instruction) {
+                $pipelines[$direction][] = $instruction;
             }
         }
 
@@ -110,7 +95,13 @@ class BuildInstructionPipeline
         // order
         $pipelines[InstructionPipeline::DI_REVERSE] = array_reverse($pipelines[InstructionPipeline::DI_REVERSE]);
 
+        // wrap them in our $next wrapper
+        $retval = [
+            InstructionPipeline::DI_FORWARD => new NextInstructionList($pipelines[InstructionPipeline::DI_FORWARD]),
+            InstructionPipeline::DI_REVERSE => new NextInstructionList($pipelines[InstructionPipeline::DI_REVERSE]),
+        ];
+
         // all done
-        return $pipelines;
+        return $retval;
     }
 }
