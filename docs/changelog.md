@@ -9,6 +9,7 @@ Initial support for creating instruction pipelines:
 - added `IsValidInstruction` check
 - added `IsValidInstructionBuilderClass` check
 - added `CannotFindInstructionBuilder` exception
+- added `InstructionPipelineError` exception
 - added `InstructionPipelineException` type-hint interface
 - added `InstructionPipelineExecptions` DI container
 - added `NotAnInstruction` exception

@@ -43,11 +43,12 @@
 
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Exceptions;
 
-use GanbaroDigital\InstructionPipeline\V1\Exceptions\UnsupportedType;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\CannotFindInstructionBuilder;
+use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineError;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\NotAnInstruction;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\NotAnInstructionBuilder;
 use GanbaroDigital\InstructionPipeline\V1\Exceptions\InstructionPipelineExceptions;
+use GanbaroDigital\InstructionPipeline\V1\Exceptions\UnsupportedType;
 use GanbaroDigital\DIContainers\V1\Interfaces\FactoryList;
 use PHPUnit_Framework_TestCase;
 
@@ -136,6 +137,56 @@ class InstructionPipelineExceptionsTest extends PHPUnit_Framework_TestCase
         // test the results
 
         $this->assertInstanceOf(CannotFindInstructionBuilder::class, $exception);
+    }
+
+    /**
+     * @covers ::offsetGet
+     */
+    public function test_has_factory_for_InstructionPipelineError_newFromInputParameter()
+    {
+        // ----------------------------------------------------------------
+        // setup your test
+
+        $extra = [
+            'pipeline_key' => 0,
+        ];
+        $unit = new InstructionPipelineExceptions;
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        $factory = $unit['InstructionPipelineError::newFromInputParameter'];
+        $exception = $factory(false, '$data', $extra);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        $this->assertInstanceOf(InstructionPipelineError::class, $exception);
+    }
+
+    /**
+     * @covers ::offsetGet
+     */
+    public function test_has_factory_for_InstructionPipelineError_newFromVar()
+    {
+        // ----------------------------------------------------------------
+        // setup your test
+
+        $unit = new InstructionPipelineExceptions;
+        $extra = [
+            'pipeline_key' => 0,
+        ];
+
+        // ----------------------------------------------------------------
+        // perform the change
+
+        $factory = $unit['InstructionPipelineError::newFromVar'];
+        $exception = $factory(false, '$data', $extra);
+
+        // ----------------------------------------------------------------
+        // test the results
+
+        $this->assertInstanceOf(InstructionPipelineError::class, $exception);
     }
 
     /**

@@ -43,33 +43,21 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\Exceptions;
 
-use GanbaroDigital\DIContainers\V1\FactoryList\Containers\FactoryListContainer;
+use GanbaroDigital\ExceptionHelpers\V1\BaseExceptions\ParameterisedException;
+use GanbaroDigital\HttpStatus\Interfaces\HttpRuntimeErrorException;
+use GanbaroDigital\HttpStatus\StatusProviders\RuntimeError\UnexpectedErrorStatusProvider;
 
 /**
- * a FactoryList of our exceptions and how to create them
+ * exception thrown when one of the instructions in our pipeline has triggered
+ * a PHP error
  */
-class InstructionPipelineExceptions extends FactoryListContainer
+class InstructionPipelineError
+  extends ParameterisedException
+  implements InstructionPipelineException, HttpRuntimeErrorException
 {
-    /**
-     * creates a FactoryList of exceptions and their factories
-     */
-    public function __construct()
-    {
-        // the exceptions that our library throws
-        $ourExceptions = [
-            'CannotFindInstructionBuilder::newFromInputParameter' => [ CannotFindInstructionBuilder::class, 'newFromInputParameter' ],
-            'CannotFindInstructionBuilder::newFromVar' => [ CannotFindInstructionBuilder::class, 'newFromVar' ],
-            'InstructionPipelineError::newFromInputParameter' => [ InstructionPipelineError::class, 'newFromInputParameter' ],
-            'InstructionPipelineError::newFromVar' => [ InstructionPipelineError::class, 'newFromVar' ],
-            'NotAnInstruction::newFromInputParameter' => [ NotAnInstruction::class, 'newFromInputParameter' ],
-            'NotAnInstruction::newFromVar' => [ NotAnInstruction::class, 'newFromVar' ],
-            'NotAnInstructionBuilder::newFromInputParameter' => [ NotAnInstructionBuilder::class, 'newFromInputParameter' ],
-            'NotAnInstructionBuilder::newFromVar' => [ NotAnInstructionBuilder::class, 'newFromVar' ],
-            'UnsupportedType::newFromInputParameter' => [ UnsupportedType::class, 'newFromInputParameter' ],
-            'UnsupportedType::newFromVar' => [ UnsupportedType::class, 'newFromVar' ],
-        ];
+    // we map onto HTTP 500
+    use UnexpectedErrorStatusProvider;
 
-        // build it
-        parent::__construct($ourExceptions);
-    }
+    // our format string
+    static protected $defaultFormat = "an error occurred at instruction '%pipeline_key\$s'; error message is: '%fieldOrVar\$s'";
 }
