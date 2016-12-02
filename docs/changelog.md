@@ -21,5 +21,4 @@ Initial support for creating instruction pipelines:
 - added `BuildInstructionPipeline` builder
 - added `RequireValidInstruction` requirement
 - added `RequireValidInstructionBuilderClass` requirement
-- added `Instruction` interface
 - added `InstructionPipeline` interface

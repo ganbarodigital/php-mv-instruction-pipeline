@@ -46,11 +46,10 @@ namespace GanbaroDigital\InstructionPipeline\V1\Exceptions;
 use GanbaroDigital\ExceptionHelpers\V1\BaseExceptions\ParameterisedException;
 use GanbaroDigital\HttpStatus\Interfaces\HttpRuntimeErrorException;
 use GanbaroDigital\HttpStatus\StatusProviders\RuntimeError\UnexpectedErrorStatusProvider;
-use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 
 /**
- * exception thrown when we've been given something that isn't an Instruction
- * object
+ * exception thrown when we've been given something that we cannot use as
+ * an instruction in our pipelines
  */
 class NotAnInstruction
   extends ParameterisedException
@@ -60,5 +59,5 @@ class NotAnInstruction
     use UnexpectedErrorStatusProvider;
 
     // our format string
-    static protected $defaultFormat = "'%fieldOrVarName\$s' does not implement the '" . Instruction::class . "' interface";
+    static protected $defaultFormat = "'%fieldOrVarName\$s' is not a PHP callable; canot use in an instruction pipeline";
 }

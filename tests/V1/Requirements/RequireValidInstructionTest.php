@@ -94,13 +94,12 @@ class RequireValidInstructionTest extends PHPUnit_Framework_TestCase
     /**
      * @covers ::apply
      * @covers ::to
+     * @dataProvider provideInstructions
      */
-    public function test_accepts_Instruction_instances()
+    public function test_accepts_callables($item)
     {
         // ----------------------------------------------------------------
         // setup your test
-
-        $item = new RequireValidInstructionTest_Instruction();
 
         // ----------------------------------------------------------------
         // perform the change
@@ -135,6 +134,14 @@ class RequireValidInstructionTest extends PHPUnit_Framework_TestCase
         // there should be no results; we should get an exception
     }
 
+    public function provideInstructions()
+    {
+        return [
+            "callable function" => [ function(){} ],
+            "invokeable class" => [ new RequireValidInstructionTest_Instruction],
+        ];
+    }
+
     public function provideNonInstructions()
     {
         return [
@@ -144,7 +151,6 @@ class RequireValidInstructionTest extends PHPUnit_Framework_TestCase
             "array of instructions" => [ [new RequireValidInstructionTest_Instruction] ],
             "bool true" => [ true ],
             "bool false" => [ false ],
-            "callable" => [ function(){} ],
             "double 0" => [ 0.0 ],
             "negative double" => [ -3.1415927 ],
             "positive double" => [ 3.1415927 ],
@@ -158,9 +164,9 @@ class RequireValidInstructionTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class RequireValidInstructionTest_Instruction implements Instruction
+class RequireValidInstructionTest_Instruction
 {
-    public function process($params)
+    public function __invoke(callable $next, $params)
     {
         // do nothing
     }

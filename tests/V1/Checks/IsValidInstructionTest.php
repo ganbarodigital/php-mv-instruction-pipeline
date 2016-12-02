@@ -44,7 +44,6 @@
 namespace GanbaroDigitalTest\InstructionPipeline\V1\Checks;
 
 use GanbaroDigital\InstructionPipeline\V1\Checks\IsValidInstruction;
-use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 use GanbaroDigital\MissingBits\Checks\Check;
 use PHPUnit_Framework_TestCase;
 
@@ -94,13 +93,13 @@ class IsValidInstructionTest extends PHPUnit_Framework_TestCase
     /**
      * @covers ::check
      * @covers ::inspect
+     * @dataProvider provideInstructions
      */
-    public function test_accepts_Instruction_instances()
+    public function test_accepts_callables($item)
     {
         // ----------------------------------------------------------------
         // setup your test
 
-        $item = new IsValidInstructionTest_Instruction();
         $unit = new IsValidInstruction();
 
         // ----------------------------------------------------------------
@@ -137,6 +136,14 @@ class IsValidInstructionTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($actualResult);
     }
 
+    public function provideInstructions()
+    {
+        return [
+            "callable function" => [ function(){} ],
+            "invokeable class" => [ new IsValidInstructionTest_Instruction],
+        ];
+    }
+
     public function provideNonInstructions()
     {
         return [
@@ -146,7 +153,6 @@ class IsValidInstructionTest extends PHPUnit_Framework_TestCase
             "array of instructions" => [ [new IsValidInstructionTest_Instruction] ],
             "bool true" => [ true ],
             "bool false" => [ false ],
-            "callable" => [ function(){} ],
             "double 0" => [ 0.0 ],
             "negative double" => [ -3.1415927 ],
             "positive double" => [ 3.1415927 ],
@@ -160,9 +166,9 @@ class IsValidInstructionTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class IsValidInstructionTest_Instruction implements Instruction
+class IsValidInstructionTest_Instruction
 {
-    public function process($params)
+    public function __invoke(callable $next, $params)
     {
         // do nothing
     }

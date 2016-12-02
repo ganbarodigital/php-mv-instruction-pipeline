@@ -43,8 +43,6 @@
 
 namespace GanbaroDigital\InstructionPipeline\V1\Interfaces;
 
-use GanbaroDigital\InstructionPipeline\V1\Instruction;
-
 /**
  * interface implemented by all factories that create individual instructions
  * for 'reverse' pipelines

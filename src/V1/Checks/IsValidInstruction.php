@@ -44,7 +44,6 @@
 namespace GanbaroDigital\InstructionPipeline\V1\Checks;
 
 use GanbaroDigital\MissingBits\Checks\Check;
-use GanbaroDigital\InstructionPipeline\V1\Interfaces\Instruction;
 
 /**
  * is $fieldOrVar a valid Instruction?
@@ -76,10 +75,7 @@ class IsValidInstruction implements Check
      */
     public static function check($fieldOrVar)
     {
-        if (!is_object($fieldOrVar)) {
-            return false;
-        }
-        if (!$fieldOrVar instanceof Instruction) {
+        if (!is_callable($fieldOrVar)) {
             return false;
         }
 
