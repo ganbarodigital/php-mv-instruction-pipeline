@@ -2,7 +2,9 @@
 
 ## develop branch
 
-Nothing yet.
+### New
+
+- added support for using your own 'NextInstruction' wrapper class
 
 ## v1.2016120201
 

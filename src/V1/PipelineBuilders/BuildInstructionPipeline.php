@@ -64,7 +64,7 @@ class BuildInstructionPipeline
      * @return InstructionPipeline[]
      *         the assembled pipelines
      */
-    public static function from($definition, $directions = InstructionPipeline::DI_FORWARD|InstructionPipeline::DI_REVERSE)
+    public static function from($definition, $directions = InstructionPipeline::DI_FORWARD|InstructionPipeline::DI_REVERSE, $wrapperClass = NextInstructionList::class)
     {
         // the pipelines that we are building
         $pipelines = [];
@@ -97,7 +97,7 @@ class BuildInstructionPipeline
         // wrap them in our $next wrapper
         $retval = [];
         foreach($pipelines as $direction => $instructions) {
-            $retval[$direction] = new NextInstructionList($instructions);
+            $retval[$direction] = new $wrapperClass($instructions);
         }
 
         // all done
