@@ -2,6 +2,12 @@
 
 ## develop branch
 
+Nothing yet.
+
+## v1.2017040701
+
+Released Friday 7th April 2017.
+
 ### New
 
 - added support for using your own 'NextInstruction' wrapper class
